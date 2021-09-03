@@ -36,7 +36,7 @@ def merge_sorted_files():
 
 
 def write_result_to_disk(sorted_data):
-    with open(os.getcwd() + '/output/output.txt', 'w') as f:
+    with open(os.getcwd() + '/output/sorted.txt', 'w') as f:
         for x in sorted_data:
             f.write(str(x)+'\n')
 
