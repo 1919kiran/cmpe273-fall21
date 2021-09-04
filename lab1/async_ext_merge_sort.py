@@ -1,9 +1,10 @@
 import heapq
 import os
+import asyncio
 
 
 # Sorts all the input files and stores the sorted data on the disk
-def sort_input_files():
+async def sort_input_files():
     path_to_input = os.getcwd() + "/input/"
     input_files_list = os.listdir(path_to_input)
 
@@ -18,7 +19,7 @@ def sort_input_files():
 
 
 # Merges the sorted data on the disk and writes the merged data into output file
-def merge_sorted_files():
+async def merge_sorted_files():
     path = os.getcwd()
     output_files = []
     for file in os.listdir(path):
@@ -35,17 +36,21 @@ def merge_sorted_files():
     return heapq.merge(*numbers_list)
 
 
-def write_result_to_disk(sorted_data):
+async def write_result_to_disk(sorted_data):
     with open(os.getcwd() + '/output/async_sorted.txt', 'w') as f:
         for x in sorted_data:
             f.write(str(x)+'\n')
 
 
-def sort():
-    sort_input_files()
-    sorted_data = merge_sorted_files()
-    write_result_to_disk(sorted_data)
+async def main():
+    t1 = loop.create_task(sort_input_files())
+    t2 = loop.create_task(merge_sorted_files())
+    sorted_data = await t2
+    t3 = loop.create_task(write_result_to_disk(sorted_data))
 
 
 if __name__ == "__main__":
-    sort()
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
+    loop.close()
+
