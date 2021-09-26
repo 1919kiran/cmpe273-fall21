@@ -1,9 +1,7 @@
 from apispec import APISpec
-from apispec_fromfile import FromFilePlugin
 from apispec.ext.marshmallow import MarshmallowPlugin
 from apispec_webframeworks.flask import FlaskPlugin
-from apispec_fromfile import from_file
-from flask import Flask, json, jsonify
+from flask import Flask, jsonify
 from flasgger import Swagger
 from students.model import StudentSchema
 
@@ -12,26 +10,18 @@ spec = APISpec(
     version="0.0.1",
     openapi_version="3.0.3",
     plugins=[
-        # FromFilePlugin("resource"),
         FlaskPlugin(),
         MarshmallowPlugin()
     ],
 )
 
 app = Flask(__name__)
-swagger = Swagger(app)  # localhost:5000/apidocs
-
-# API endpoints
-
-# @from_file("spec/api.yml")
+swagger = Swagger(app)
 
 
 @app.route("/")
 def index():
-    # return {"OK"}
     return jsonify({"foo": "bar"})
-
-# @from_file("spec/api.yml")
 
 
 @app.route("/spec")
