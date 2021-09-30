@@ -1,2 +1,11 @@
 
 *.xml
+*.iml
+.DS_Store
+assignments/assignment1/.idea/.name
+*.iml
+assignments/assignment1/.idea/assignment1.iml
+lab2/app.py
+*.ipynb
+assignments/assignment1/venv/*
+assignments/assignment1/Pipfile
