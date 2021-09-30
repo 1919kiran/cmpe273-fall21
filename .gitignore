@@ -9,3 +9,4 @@ lab2/app.py
 *.ipynb
 assignments/assignment1/venv/*
 assignments/assignment1/Pipfile
+*.pyc
