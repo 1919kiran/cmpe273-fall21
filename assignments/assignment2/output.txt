@@ -1,0 +1,131 @@
+// 1. SHORTEN A LINK
+curl --location --request POST 'http://127.0.0.1:5000/rest/api/v1/shorten' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "long_url": "http://chart.api.google.com/chart?chs=500x500&chma=0,0,100,100&cht=p&chco=FF0000%2CFFFF00%7CFF8000%2C00FF00%7C00FF00%2C0000FF&chd=t%3A122%2C42%2C17%2C10%2C8%2C7%2C7%2C7%2C7%2C6%2C6%2C6%2C6%2C5%2C5&chl=122%7C42%7C17%7C10%7C8%7C7%7C7%7C7%7C7%7C6%7C6%7C6%7C6%7C5%7C5&chdl=android%7Cjava%7Cstack-trace%7Cbroadcastreceiver%7Candroid-ndk%7Cuser-agent%7Candroid-webview%7Cwebview%7Cbackground%7Cmultithreading%7Candroid-source%7Csms%7Cadb%7Csollections%7Cactivity",
+    "domain": "bit.ly",
+    "group_guid": "bit.ly"
+}'
+OUTPUT:
+{
+  "create_time": "2021-10-11 21:49:57.166354",
+  "created_by": "admin",
+  "deeplinks": null,
+  "domain": "bit.ly",
+  "group_guid": "bit.ly",
+  "id": 3,
+  "long_url": "http://chart.api.google.com/chart?chs=500x500&chma=0,0,100,100&cht=p&chco=FF0000%2CFFFF00%7CFF8000%2C00FF00%7C00FF00%2C0000FF&chd=t%3A122%2C42%2C17%2C10%2C8%2C7%2C7%2C7%2C7%2C6%2C6%2C6%2C6%2C5%2C5&chl=122%7C42%7C17%7C10%7C8%7C7%7C7%7C7%7C7%7C6%7C6%7C6%7C6%7C5%7C5&chdl=android%7Cjava%7Cstack-trace%7Cbroadcastreceiver%7Candroid-ndk%7Cuser-agent%7Candroid-webview%7Cwebview%7Cbackground%7Cmultithreading%7Candroid-source%7Csms%7Cadb%7Csollections%7Cactivity",
+  "short_url": "EED5BB06",
+  "tags": null,
+  "title": null,
+  "update_time": "2021-10-11 21:49:57.166362",
+  "updated_by": "admin"
+}
+
+// 2. CREATE A BITLINK
+curl --location --request POST 'http://127.0.0.1:5000/rest/api/v1/bitlinks' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "long_url": "https://dev.bitly.com/user",
+  "domain": "bit.ly",
+  "group_guid": "Ba1bc23dE4F",
+  "title": "Bitly API Documentation",
+  "tags": [
+    "bitly",
+    "api"
+  ],
+  "deeplinks": [
+    {
+      "app_id": "com.bitly.app",
+      "app_uri_path": "/store?id=123456",
+      "install_url": "https://play.google.com/store/apps/details?id=com.bitly.app&hl=en_US",
+      "install_type": "promote_install"
+    }
+  ]
+}'
+OUTPUT:
+{
+  "bitlink": "bit.ly/3E829F98",
+  "created_at": "Mon, 11 Oct 2021 22:08:22 GMT",
+  "created_by": "admin",
+  "deeplinks": [
+    {
+      "app_id": "com.bitly.app",
+      "app_uri_path": "/store?id=123456",
+      "install_type": "promote_install",
+      "install_url": "https://play.google.com/store/apps/details?id=com.bitly.app&hl=en_US"
+    }
+  ],
+  "link": "https://dev.bitly.com/user",
+  "tags": [
+    "bitly",
+    "api"
+  ],
+  "title": "Bitly API Documentation"
+}
+
+
+// 3. UPDATE A BITLINK
+curl --location --request PATCH 'http://127.0.0.1:5000/rest/api/v1/bitlinks/bit.ly/67461BD3' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "title": "Bitly API Documentation",
+  "tags": [
+    "bitly",
+    "api"
+  ],
+  "updated_by": "user",
+  "group_guid": "Ab1cdE2fG3h",
+  "deeplinks": [
+    {
+      "guid": "Ra1bcD2eF3h",
+      "bitlink": "bit.ly/documentation",
+      "app_uri_path": "/store?id=123456",
+      "install_url": "https://play.google.com/store/apps/details?id=com.bitly.app&hl=en_US",
+      "app_guid": "Ab1cdE2fG3h",
+      "os": "android",
+      "install_type": "promote_install",
+      "brand_guid": "Ba1bc23dE4F"
+    }
+  ]
+}'
+OUTPUT:
+{
+  "create_time": "2021-10-11 20:22:43.815723",
+  "created_by": "admin",
+  "deeplinks": "[{'guid': 'Ra1bcD2eF3h', 'bitlink': 'bit.ly/documentation', 'app_uri_path': '/store?id=123456', 'install_url': 'https://play.google.com/store/apps/details?id=com.bitly.app&hl=en_US', 'app_guid': 'Ab1cdE2fG3h', 'os': 'android', 'install_type': 'promote_install', 'brand_guid': 'Ba1bc23dE4F'}]",
+  "domain": "bit.ly",
+  "group_guid": "Ab1cdE2fG3h",
+  "id": 1,
+  "long_url": "https://dev.bitly.com",
+  "short_url": "bit.ly/67461BD3",
+  "tags": "['bitly', 'api']",
+  "title": "Bitly API Documentation",
+  "update_time": "2021-10-11 20:22:43.815723",
+  "updated_by": "user"
+}
+
+
+// 4. RETRIEVE A BITLINK
+curl --location --request GET 'http://127.0.0.1:5000/rest/api/v1/bitlinks/bit.ly/67461BD3'
+OUTPUT:
+{
+  "create_time": "2021-10-11 20:22:43.815723",
+  "created_by": "admin",
+  "deeplinks": "[{'guid': 'Ra1bcD2eF3h', 'bitlink': 'bit.ly/documentation', 'app_uri_path': '/store?id=123456', 'install_url': 'https://play.google.com/store/apps/details?id=com.bitly.app&hl=en_US', 'app_guid': 'Ab1cdE2fG3h', 'os': 'android', 'install_type': 'promote_install', 'brand_guid': 'Ba1bc23dE4F'}]",
+  "domain": "bit.ly",
+  "group_guid": "Ab1cdE2fG3h",
+  "id": 1,
+  "long_url": "https://dev.bitly.com",
+  "short_url": "67461BD3",
+  "tags": "['bitly', 'api']",
+  "title": "Bitly API Documentation",
+  "update_time": "2021-10-11 20:22:43.815723",
+  "updated_by": "user"
+}
+
+// 5. GET CLICKS FOR A BITLINK
+curl --location --request GET 'http://127.0.0.1:5000/rest/api/v1/bitlinks/bit.ly/67461BD3/clicks?unit=month&units=-1&unit_reference=2106-01-11T15%3A04%3A05-0700'
+
+OUTPUT:
+{"link_clicks":[{"clicks":6,"date":"2021-10-11 20:22:43.819441"}],"unit":"month","unit_reference":"Mon, 11 Jan 2106 22:04:05 GMT","units":-1}
