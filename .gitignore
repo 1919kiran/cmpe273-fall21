@@ -138,3 +138,10 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+labs/.idea/inspectionProfiles/profiles_settings.xml
+assignments/assignment2/.DS_Store
+labs/.idea/labs.iml
+labs/.idea/misc.xml
+labs/.idea/modules.xml
+labs/.idea/vcs.xml
+labs/.idea/inspectionProfiles/Project_Default.xml
