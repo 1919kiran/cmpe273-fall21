@@ -1,22 +1,25 @@
 type Query {
-    students(id: ID): Student
-    classes(id: ID): Class
+    students(student_id: Int!): Student
+    classes(class_id: Int!): Class
     hello: String!
 }
 
 type Class {
-    id: ID
+    class_id: Int!
     name: String!
-    students: [Student]
+    students: [String]
 }
 
 type Student {
-    id: ID
+    student_id: Int!
     name: String!
-    class: [Class]
 }
 
 type Mutation {
     create_student(name: String!): Student!
     create_class(name: String!): Class!
+    add_student_to_class(
+        class_id: Int!
+        student_id: Int!
+    ): Class
 }
